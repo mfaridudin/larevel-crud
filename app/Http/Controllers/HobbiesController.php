@@ -11,13 +11,13 @@ class HobbiesController extends Controller
     {
         $hobbies = hobbies::get();
 
-        return view('hobbies', compact('hobbies'));
+        return view('hobbies.hobbies', compact('hobbies'));
     }
 
     // create
     public function create()
     {
-        return view('create');
+        return view('hobbies.create');
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class HobbiesController extends Controller
     {
         $hobby = hobbies::findOrFail($id);
 
-        return view('edit', compact('hobby'));
+        return view('hobbies.edit', compact('hobby'));
     }
 
     public function update(Request $request, string $id)

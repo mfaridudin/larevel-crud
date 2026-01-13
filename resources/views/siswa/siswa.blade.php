@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hobbies</title>
+    <title>Siswa</title>
 
     {{-- bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -15,51 +15,57 @@
 
     <div class="container p-4">
 
-    @if (session('message'))
-    
-    <div class="alert alert-primary" role="alert">
-        {{ session('message') }}
-    </div>
-       
-    @endif
-        <h1>Tabel Hobi</h1>
+        @if (session('message'))
 
-        <a href="/hobbies/create" class="btn btn-primary t-12">Tambah Hobi</a>
+            <div class="alert alert-primary" role="alert">
+                {{ session('message') }}
+            </div>
+
+        @endif
+        <h1>Tabel Siswa</h1>
+
+        <a href="/siswa/create" class="btn btn-primary t-12">Tambah Siswa</a>
 
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Hobi</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">NISN</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($hobbies as $item)
+                @forelse ($siswa as $item)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $item->hobby }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->nisn->nisn }}</td>
                         <td class="d-flex gap-2 items-center">
-                            <a href="/hobbies/{{ $item->id }}/edit" class="btn btn-primary">Edit</a>
-                           <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            <a href="/siswa/{{ $item->id }}/edit" class="btn btn-primary">Edit</a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#hapus{{$item->id}}">
                                 Hapus
                             </button>
                         </td>
                     </tr>
                 @empty
-
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            data siswa belum ada 
+                        </td>
+                    </tr>
                 @endforelse
 
             </tbody>
         </table>
 
         {{-- modal --}}
-        @foreach($hobbies as $item)
+        @foreach($siswa as $item)
             <div class="modal fade" id="hapus{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog bg-white rounded-3">
-                    <form action="/hobbies/{{$item->id}}/destroy" method="POST" class="modal-content">
+                    <form action="/siswa/{{$item->id}}" method="POST" class="modal-content">
                         @method('DELETE')
                         @csrf
                         <div class="modal-header">
@@ -67,7 +73,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Yakin ingin menghapus {{$item->hobby}} ?
+                            Yakin ingin menghapus data {{$item->nama}} ?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
