@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\SiswasController;
 use App\Http\Controllers\HobbiesController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SiswaHobbiesController;
+use App\Http\Controllers\SiswasController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,3 +20,5 @@ Route::delete('/hobbies/{id}/destroy', [HobbiesController::class, 'destroy']);
 Route::resource('siswa', SiswaController::class);
 
 Route::resource('siswas', SiswasController::class);
+
+Route::resource('siswa-hobi', SiswaHobbiesController::class);

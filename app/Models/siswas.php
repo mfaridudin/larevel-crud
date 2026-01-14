@@ -11,6 +11,11 @@ class siswas extends Model
         return $this->hasMany(phone_numbers::class);
     }
 
+    public function hobbies()
+    {
+        return $this->belongsToMany(hobbies::class, 'hobby_siswa', 'siswa_id', 'hobby_id');
+    }
+
     protected $table = 'siswas';
 
     protected $primaryKey = 'id';

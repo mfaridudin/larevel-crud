@@ -43,13 +43,13 @@ class SiswasController extends Controller
         ]);
 
         if ($request->no_telp_1) {
-            $siswa->phone_number()->create([
+            $siswa->phone_numbers()->create([
                 'phone_number' => $request->no_telp_1,
             ]);
         }
 
         if ($request->no_telp_2) {
-            $siswa->phone_number()->create([
+            $siswa->phone_numbers()->create([
                 'phone_number' => $request->no_telp_2,
             ]);
         }
