@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('Auth.register');
     }
+
     public function register(Request $request)
     {
         // Registration logic will go here
