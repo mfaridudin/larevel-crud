@@ -65,7 +65,17 @@ class SiswaNisnController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show(string $id)
+    {
+
+        $siswa = siswa::with('nisn')->findOrFail($id);
+
+        return response()->json([
+            'status' => 'true',
+            'massage' => 'Detail siswa',
+            'data' => $siswa,
+        ], 200);
+    }
 
     /**
      * Update the specified resource in storage.

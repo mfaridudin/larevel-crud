@@ -54,6 +54,18 @@ class HobbiesController extends Controller
         ], 201);
     }
 
+    public function show(string $id)
+    {
+        $hobby = hobbies::findOrFail($id);
+
+        return response()->json([
+            'status' => 'true',
+            'massage' => 'Detail hobby',
+            'data' => $hobby,
+
+        ], 200);
+    }
+
     /**
      * Update the specified resource in storage.
      */

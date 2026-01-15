@@ -32,8 +32,8 @@ class SiswaPhoneNumberController extends Controller
 
         $rules = [
             'nama' => 'required|string',
-            'no_telp_1' => 'nullable|numeric|unique:phone_numbers,phone_number',
-            'no_telp_2' => 'nullable|numeric|unique:phone_numbers,phone_number|different:no_telp_1',
+            'phone_numbers' => 'nullable|array',
+            'phone_numbers.*' => 'numeric|distinct|unique:phone_numbers,phone_number',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -50,16 +50,12 @@ class SiswaPhoneNumberController extends Controller
             'nama' => $request->nama,
         ]);
 
-        if ($request->no_telp_1) {
-            $siswa->phone_numbers()->create([
-                'phone_number' => $request->no_telp_1,
-            ]);
-        }
-
-        if ($request->no_telp_2) {
-            $siswa->phone_numbers()->create([
-                'phone_number' => $request->no_telp_2,
-            ]);
+        if ($request->phone_numbers) {
+            foreach ($request->phone_numbers as $phone) {
+                $siswa->phone_numbers()->create([
+                    'phone_number' => $phone,
+                ]);
+            }
         }
 
         $siswa->load('phone_numbers');
@@ -72,20 +68,31 @@ class SiswaPhoneNumberController extends Controller
 
     }
 
+    public function show(string $id)
+    {
+        $siswa = siswas::with('phone_numbers')->findOrFail($id);
+
+        return response()->json([
+            'status' => 'true',
+            'massage' => 'Detail siswa',
+            'data' => $siswa,
+        ], 200);
+    }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        $siswa = siswas::findOrFail($id);
+        $siswa = siswas::with('phone_numbers')->findOrFail($id);
 
-        $phoneId1 = $siswa->phone_numbers->get(0)?->id;
-        $phoneId2 = $siswa->phone_numbers->get(1)?->id;
+        // $phoneId1 = $siswa->phone_numbers->get(0)?->id;
+        // $phoneId2 = $siswa->phone_numbers->get(1)?->id;
 
         $rules = [
             'nama' => 'required|string',
-            'no_telp_1' => "nullable|numeric|unique:phone_numbers,phone_number,{$phoneId1}",
-            'no_telp_2' => "nullable|numeric|unique:phone_numbers,phone_number,{$phoneId2}|different:no_telp_1",
+            'phone_numbers' => 'nullable|array',
+            'phone_numbers.*' => 'numeric|distinct|unique:phone_numbers,phone_number',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -102,19 +109,18 @@ class SiswaPhoneNumberController extends Controller
             'nama' => $request->nama,
         ]);
 
-        if ($request->no_telp_1) {
-            $siswa->phone_numbers()->updateOrCreate(
-                ['id' => $phoneId1],
-                ['phone_number' => $request->no_telp_1]
-            );
+        if ($request->phone_numbers) {
+            
+            $siswa->phone_numbers()->delete();
+
+            foreach ($request->phone_numbers as $phone) {
+                $siswa->phone_numbers()->create([
+                    'phone_number' => $phone,
+                ]);
+            }
         }
 
-        if ($request->no_telp_2) {
-            $siswa->phone_numbers()->updateOrCreate(
-                ['id' => $phoneId2],
-                ['phone_number' => $request->no_telp_2]
-            );
-        }
+        $siswa->load('phone_numbers');
 
         return response()->json([
             'status' => true,
