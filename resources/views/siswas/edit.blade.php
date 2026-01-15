@@ -14,7 +14,7 @@
 <body>
 
     <div class="container p-4">
-        <h1>Tambah Siswas</h1>
+        <h1>Edit Siswa</h1>
         <a href="/siswas" class="btn btn-primary t-12">Kembali</a>
 
         <form action="/siswas/{{ $siswas->id }}" method="post">

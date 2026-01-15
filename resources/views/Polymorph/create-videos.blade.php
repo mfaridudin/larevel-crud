@@ -17,7 +17,7 @@
         <h1>Tambah videos</h1>
         <a href="/videos" class="btn btn-primary t-12">Kembali</a>
 
-        <form action="/videos" method="post">
+        <form action="/videos" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="mb-3">
@@ -29,8 +29,8 @@
 
             </div>
             <div class="mb-3">
-                <label class="form-label">URL videos</label>
-                <input type="text" class="form-control" name="url_videos" value="{{ old('url_videos') }}">
+                <label class="form-label">Uploads videos</label>
+                <input type="file" class="form-control" name="url_videos" value="{{ old('url_videos') }}">
                 @error('url_videos')
                     <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
                 @enderror

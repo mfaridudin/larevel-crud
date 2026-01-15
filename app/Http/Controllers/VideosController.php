@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\videos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VideosController extends Controller
 {
@@ -32,21 +33,25 @@ class VideosController extends Controller
     {
         $request->validate([
             'judul_videos' => 'required|max:50',
-            'url_videos' => 'required',
+            'url_videos' => 'required|file|mimes:mp4,mov,avi|max:51200', // Hapus koma ganda di sini
         ], [
             'judul_videos.required' => 'Nama wajib diisi',
             'judul_videos.max' => 'Judul video maksimal 50 karakter!',
-            'url_videos.required' => 'url wajib diisi',
+            'url_videos.required' => 'File video wajib diisi',
         ]);
 
-        // dd($request);
+        if ($request->hasFile('url_videos')) {
+            $video = $request->file('url_videos');
 
-        videos::create([
-            'title' => $request->judul_videos,
-            'url' => $request->url_videos,
-        ]);
+            $path = $video->store('videos', 'public');
 
-        return redirect('/videos')->with('message', 'Video berhasil ditambah');
+            videos::create([
+                'title' => $request->judul_videos,
+                'url' => $path,
+            ]);
+
+            return redirect('/videos')->with('message', 'Video berhasil ditambah');
+        }
     }
 
     /**
@@ -74,23 +79,23 @@ class VideosController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $video = videos::findOrFail($id);
 
-        $request->validate([
-            'judul_videos' => 'required|max:50',
-            'url_videos' => 'required',
-        ], [
-            'judul_videos.required' => 'Nama wajib diisi',
-            'judul_videos.max' => 'Judul video maksimal 50 karakter!',
-            'url_videos.required' => 'url wajib diisi',
-        ]);
+        if ($request->hasFile('url_videos')) {
+            $uploadedFile = $request->file('url_videos');
 
-        // dd($request);
+            $path = $uploadedFile->store('videos', 'public');
 
-        $video->update([
-            'title' => $request->judul_videos,
-            'url' => $request->url_videos,
-        ]);
+            $video->update([
+                'title' => $request->judul_videos,
+                'url' => $path,
+            ]);
+        } else {
+            $video->update([
+                'title' => $request->judul_videos,
+            ]);
+        }
 
         return redirect('/videos')->with('message', 'Video berhasil diupdate');
     }

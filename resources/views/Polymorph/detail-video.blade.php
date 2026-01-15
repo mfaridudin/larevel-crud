@@ -29,12 +29,11 @@
 
         <div class="row g-4">
             <div class="col-md-8">
-                <div class="ratio ratio-16x9 shadow rounded">
-                    <iframe
-                        src="{{ $video->url }}"
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <video width="320" height="240" controls>
+                    <source src="{{ asset('storage/' . $video->url) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
             </div>
 
             <div class="col-md-4">
@@ -46,12 +45,8 @@
                             @csrf
 
                             <div class="mb-3">
-                                <textarea
-                                    class="form-control"
-                                    name="body"
-                                    rows="4"
-                                    placeholder="Tulis komentar..."
-                                >{{ old('body') }}</textarea>
+                                <textarea class="form-control" name="body" rows="4"
+                                    placeholder="Tulis komentar...">{{ old('body') }}</textarea>
 
                                 @error('body')
                                     <small class="text-danger">{{ $message }}</small>
@@ -71,14 +66,14 @@
             <h5>Komentar</h5>
 
             <ul class="list-group">
-                @forelse ($video->comments as $item )
+                @forelse ($video->comments as $item)
                     <li class="list-group-item">
                         {{ $item->body }}
                     </li>
                 @empty
-                    
+
                 @endforelse
-               
+
             </ul>
         </div>
 

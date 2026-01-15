@@ -17,20 +17,20 @@
         <h1>Edit videos</h1>
         <a href="/videos" class="btn btn-primary t-12">Kembali</a>
 
-        <form action="/videos/{{ $video->id }}" method="post">
+        <form action="/videos/{{ $video->id }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
                 <label class="form-label">Judul videos</label>
-                <input type="text" class="form-control" name="judul_videos" value="{{ $video->title}}">
+                <input type="text" class="form-control" name="judul_videos" value="{{ $video->title }}">
                 @error('judul_videos')
                     <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
                 @enderror
 
             </div>
             <div class="mb-3">
-                <label class="form-label">URL videos</label>
-                <input type="text" class="form-control" name="url_videos" value="{{ $video->url }}">
+                <label class="form-label">Uploads videos</label>
+                <input type="file" class="form-control" name="url_videos" value="{{ $video->url }}">
                 @error('url_videos')
                     <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
                 @enderror
