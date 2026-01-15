@@ -31,8 +31,7 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">Nomor Telphone 1</th>
-                       <th scope="col">Nomor Telphone 2</th>
+                    <th scope="col">Nomor Telphone</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -41,10 +40,13 @@
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $item->nama }}</td>
-                        <td>{{ $item->phone_numbers->get(0)?->phone_number ?? '-' }}</td>
-                        <td>{{ $item->phone_numbers->get(1)?->phone_number ?? '-' }}</td>
+                        <td>
+                            {{ $item->phone_numbers->pluck('phone_number')->implode(', ') }}
+                        </td>
+                        {{-- <td>{{ $item->phone_numbers->get(0)?->phone_number ?? '-' }}</td>
+                        <td>{{ $item->phone_numbers->get(1)?->phone_number ?? '-' }}</td> --}}
                         <td class="d-flex gap-2 items-center">
-                           <a href="/siswas/{{ $item->id }}/edit" class="btn btn-primary">Edit</a>
+                            <a href="/siswas/{{ $item->id }}/edit" class="btn btn-primary">Edit</a>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#hapus{{$item->id}}">
                                 Hapus

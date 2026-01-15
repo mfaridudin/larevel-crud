@@ -1,19 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\HobbiesController;
+use App\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\PasswordResetLinkController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\SendEmailsController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SiswaHobbiesController;
 use App\Http\Controllers\SiswasController;
 use App\Http\Controllers\VideosController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\HobbiesController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\GoogleAuthController;
-use App\Http\Controllers\SendEmailsController;
-use App\Http\Controllers\NewPasswordController;
-use App\Http\Controllers\SiswaHobbiesController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\PasswordResetLinkController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');

@@ -34,24 +34,20 @@ class SiswasController extends Controller
     {
         $request->validate([
             'nama' => 'required|string',
-            'no_telp_1' => 'nullable|numeric|unique:phone_numbers,phone_number',
-            'no_telp_2' => 'nullable|numeric|unique:phone_numbers,phone_number|different:no_telp_1',
+            'phone_numbers' => 'nullable|array',
+            'phone_numbers.*' => 'numeric|distinct|unique:phone_numbers,phone_number',
         ]);
 
-        $siswa = siswas::create([
+        $siswa = Siswas::create([
             'nama' => $request->nama,
         ]);
 
-        if ($request->no_telp_1) {
-            $siswa->phone_numbers()->create([
-                'phone_number' => $request->no_telp_1,
-            ]);
-        }
-
-        if ($request->no_telp_2) {
-            $siswa->phone_numbers()->create([
-                'phone_number' => $request->no_telp_2,
-            ]);
+        if ($request->phone_numbers) {
+            foreach ($request->phone_numbers as $phone) {
+                $siswa->phone_numbers()->create([
+                    'phone_number' => $phone,
+                ]);
+            }
         }
 
         return redirect('/siswas')->with('message', 'Data berhasil disimpan');
