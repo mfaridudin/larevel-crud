@@ -71,32 +71,28 @@ class SiswasController extends Controller
     {
         $siswa = Siswas::findOrFail($id);
 
-        $phoneId1 = $siswa->phone_numbers->get(0)?->id;
-        $phoneId2 = $siswa->phone_numbers->get(1)?->id;
-
         $request->validate([
             'nama' => 'required|string',
-            'no_telp_1' => "nullable|numeric|unique:phone_numbers,phone_number,{$phoneId1}",
-            'no_telp_2' => "nullable|numeric|unique:phone_numbers,phone_number,{$phoneId2}|different:no_telp_1",
+            'phone_numbers' => 'nullable|array',
+            'phone_numbers.*' => 'numeric|distinct|unique:phone_numbers,phone_number',
         ]);
 
         $siswa->update([
             'nama' => $request->nama,
         ]);
 
-        if ($request->no_telp_1) {
-            $siswa->phone_numbers()->updateOrCreate(
-                ['id' => $phoneId1],
-                ['phone_number' => $request->no_telp_1]
-            );
+        if ($request->phone_numbers) {
+
+            $siswa->phone_numbers()->delete();
+
+            foreach ($request->phone_numbers as $phone) {
+                $siswa->phone_numbers()->create([
+                    'phone_number' => $phone,
+                ]);
+            }
         }
 
-        if ($request->no_telp_2) {
-            $siswa->phone_numbers()->updateOrCreate(
-                ['id' => $phoneId2],
-                ['phone_number' => $request->no_telp_2]
-            );
-        }
+        $siswa->load('phone_numbers');
 
         return redirect('/siswas')->with('message', 'Data berhasil diupdate');
     }

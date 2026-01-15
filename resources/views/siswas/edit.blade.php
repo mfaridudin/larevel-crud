@@ -4,58 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siswa</title>
+    <title>Edit Siswas</title>
 
-    {{-- bootstrap --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-
     <div class="container p-4">
-        <h1>Edit Siswa</h1>
-        <a href="/siswas" class="btn btn-primary t-12">Kembali</a>
+        <h1>Edit Siswas</h1>
+        <a href="/siswas" class="btn btn-primary mb-3">Kembali</a>
 
         <form action="/siswas/{{ $siswas->id }}" method="post">
             @csrf
             @method('PUT')
+
             <div class="mb-3">
-                <label class="form-label">Nama Siswa</label>
-                <input type="text" class="form-control" name="nama" value="{{ $siswas->nama}}">
+                <label class="form-label">Nama Siswas</label>
+                <input type="text" class="form-control" name="nama" value="{{ old('nama', $siswas->nama) }}">
+
                 @error('nama')
-                    <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
+                    <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
-
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Nomor telphone 1</label>
-                <input type="number" class="form-control" name="no_telp_1" 
-                    value="{{ $siswas->phone_numbers->get(0)?->phone_number ?? '' }}">
-
-                @error('no_telp_1')
-                    <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
-                @enderror
-
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Nomor telphone 2 (Opsional)</label>
-                <input type="number" class="form-control" name="no_telp_2" 
-                    value="{{ $siswas->phone_numbers->get(0)?->phone_number ?? '' }}">
-                @error('no_telp_2')
-                    <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
-                @enderror
+                <label class="form-label">Nomor Telephone</label>
 
+                <div id="phone-wrapper">
+                    @foreach(old('phone_numbers', $siswas->phone_numbers) as $index => $phone_number)
+                        <div class="d-flex mb-2">
+                            <input type="number" class="form-control me-2" name="phone_numbers[]" value="{{ $phone_number }}"
+                                placeholder="Nomor telephone">
+
+                            <button type="button" class="btn btn-danger remove-phone" {{ $index === 0 ? 'disabled' : '' }}>
+                                X
+                            </button>
+                        </div>
+                    @endforeach
+                </div>
+
+                <button type="button" id="add-phone" class="btn btn-sm btn-secondary">
+                    + Tambah Nomor
+                </button>
+
+                @error('phone_numbers.*')
+                    <div class="form-text text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 
-    {{-- bootstrap --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('add-phone').addEventListener('click', function () {
+            const wrapper = document.getElementById('phone-wrapper');
+
+            const div = document.createElement('div');
+            div.classList.add('d-flex', 'mb-2');
+
+            div.innerHTML = `
+            <input type="number" class="form-control me-2"
+                   name="phone_numbers[]"
+                   placeholder="Nomor telephone">
+            <button type="button" class="btn btn-danger remove-phone">X</button>
+        `;
+
+            wrapper.appendChild(div);
+            toggleRemoveButtons();
+        });
+
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-phone')) {
+                e.target.parentElement.remove();
+                toggleRemoveButtons();
+            }
+        });
+
+        function toggleRemoveButtons() {
+            const buttons = document.querySelectorAll('.remove-phone');
+            buttons.forEach((btn, index) => {
+                btn.disabled = buttons.length === 1;
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
