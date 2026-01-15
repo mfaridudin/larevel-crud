@@ -14,8 +14,8 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::apiResource('hobby', HobbiesController::class,);
+Route::apiResource('hobby', HobbiesController::class);
 
-Route::apiResource('siswa-nisn', SiswaNisnController::class,);
+Route::apiResource('siswa-nisn', SiswaNisnController::class);
 
-Route::apiResource('siswa-phone-number', SiswaPhoneNumberController::class,);
+Route::apiResource('siswa-phone-number', SiswaPhoneNumberController::class);

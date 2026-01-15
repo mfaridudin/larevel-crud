@@ -15,8 +15,8 @@
 
     <section class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
         <div class="card shadow-sm p-4" style="max-width: 420px; width: 100%;">
-            <h3 class="text-center text-primary mb-1">Login Akun</h3>
-            <p class="text-center text-muted mb-3">Masukkan email dan password Anda</p>
+            <h3 class="text-center text-primary mb-1">Forgot Password</h3>
+            <p class="text-center text-muted mb-3">Masukkan email anda</p>
 
             @if ($errors->has('login'))
                 <div class="alert alert-danger py-2 text-center">
@@ -30,31 +30,15 @@
                 </div>
             @endif
 
-            <form action="/login" method="POST">
-                @csrf
+        <form method="POST" action="{{ route('password.update') }}">
+            @csrf
+            <input type="hidden" name="token" value="{{ $token }}">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password baru" required>
+            <input type="password" name="password_confirmation" placeholder="Konfirmasi password" required>
+            <button type="submit" class="btn btn-primary">Reset Password</button>
+        </form>
 
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="email@domain.com"
-                        value="{{ old('email') }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="••••••••" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100">
-                    Login
-                </button>
-
-                <a href="/forgot-password">lupa password</a>
-
-                <p class="text-center mt-3 mb-0">
-                    Belum punya akun?
-                    <a href="/register" class="fw-semibold text-primary">Daftar</a>
-                </p>
-            </form>
         </div>
     </section>
 
