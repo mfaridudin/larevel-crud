@@ -8,6 +8,7 @@ use App\Http\Controllers\VideosController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HobbiesController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\SendEmailsController;
 use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\SiswaHobbiesController;
@@ -23,6 +24,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
@@ -41,6 +43,10 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->name('password.update');
 
 Route::resource('siswa', SiswaController::class)->middleware('auth');
+
+// login google
+Route::get('/auth-google-redirect', [GoogleAuthController::class, 'google_redirect']);
+Route::get('/auth-google-callback', [GoogleAuthController::class, 'google_callback']);
 
 Route::get('/hobbies', [HobbiesController::class, 'index'])->middleware('auth');
 Route::get('/hobbies/create', [HobbiesController::class, 'create'])->middleware('auth');

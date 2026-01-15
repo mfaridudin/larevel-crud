@@ -60,6 +60,11 @@
             </tbody>
         </table>
 
+        <form action="/logout" method="post">
+            @csrf
+            <button type="submit">logout</button>
+        </form>
+
         {{-- modal --}}
         @foreach($siswa as $item)
             <div class="modal fade" id="hapus{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -83,6 +88,7 @@
                 </div>
             </div>
         @endforeach
+
     </div>
     {{-- bootstrap --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

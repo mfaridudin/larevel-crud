@@ -44,9 +44,13 @@
                     <input type="password" name="password" class="form-control" placeholder="••••••••" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">
+                <button type="submit" class="btn btn-primary w-100 mb-3">
                     Login
                 </button>
+
+                <a href="/auth-google-redirect" class="btn btn-primary w-100 ">
+                    login dengan google
+                </a>
 
                 <a href="/forgot-password">lupa password</a>
 
