@@ -155,9 +155,6 @@
                     </div>
                     <!-- Modal body -->
                     <div class="p-6 space-y-4">
-                        <h6 class="text-base text-slate-900 dark:text-white leading-6">
-                            Lorem ipsum dolor sit.
-                        </h6>
                         <p class="text-base text-slate-600 dark:text-slate-400 leading-6">
                             Yakin ingin menghapus item ini?
                         </p>
@@ -167,14 +164,14 @@
                         class="flex items-center justify-end p-6 space-x-2 border-t border-slate-200 rounded-b dark:border-slate-600">
                         <button type="button" class="btn btn-warning inline-flex justify-center text-white"
                             data-bs-dismiss="modal">
-                            Cancel
+                            Batal
                         </button>
                         <form id="delete-form" method="POST">
                             @csrf
                             @method('DELETE')
 
                             <button type="submit" class="btn btn-danger inline-flex justify-center text-white">
-                                Accept
+                                Hapus
                             </button>
                         </form>
                     </div>
