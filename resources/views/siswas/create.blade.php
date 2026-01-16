@@ -45,7 +45,7 @@
                     <div class="mb-3">
                         <label class="form-label">Nomor Telephone</label>
                         <div id="phone-wrapper">
-                            <div class="flex justify-between items-end space-x-6" id="phone-wrapper">
+                            <div class="flex justify-between items-end space-x-3 phone-row mb-2" id="phone-wrapper">
                                 <div class="input-area w-full">
                                     <input type="tel" class="form-control" name="phone_numbers[]"
                                         placeholder="Nomor telephone">
@@ -58,7 +58,7 @@
                             </div>
                         </div>
 
-                        <button type="button" id="add-phone" class="btn btn-sm btn-secondary pt-2">
+                        <button type="button" id="add-phone" class="btn btn-sm btn-secondary mt-2">
                             + Tambah Nomor
                         </button>
 
@@ -80,7 +80,7 @@
             div.classList.add('d-flex', 'mb-2');
 
             div.innerHTML = `
-            <div class="flex justify-between items-end space-x-6" id="phone-wrapper">
+            <div class="flex justify-between items-end space-x-3 phone-row mb-2" id="phone-wrapper">
                                 <div class="input-area w-full">
                                     <input type="tel" class="form-control" name="phone_numbers[]"
                                         placeholder="Nomor telephone">
