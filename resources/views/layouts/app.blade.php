@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('dashcode/assets/css/app.css') }}">
 
     <!-- End : Theme CSS-->
-    <script src="{{ asset('dashcode/assets/js/settings.js') }}" defer></script>
+    <script src="{{ asset('dashcode/assets/js/settings.js') }}" sync></script>
 
 </head>
 
@@ -88,18 +88,18 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="kanban.html" class="navItem">
+                        <a href="/siswa-hobi" class="navItem">
                             <span class="flex items-center">
                                 <iconify-icon class=" nav-icon" icon="heroicons-outline:view-boards"></iconify-icon>
-                                <span>Kanban</span>
+                                <span>Siswa Hobi</span>
                             </span>
                         </a>
                     </li>
                     <li class="">
-                        <a href="calander.html" class="navItem">
+                        <a href="/hobbies" class="navItem">
                             <span class="flex items-center">
                                 <iconify-icon class=" nav-icon" icon="heroicons-outline:calendar"></iconify-icon>
-                                <span>Calander</span>
+                                <span>Hobby</span>
                             </span>
                         </a>
                     </li>
@@ -133,7 +133,13 @@
         </div>
         <!-- End: Sidebar -->
 
-        <!-- BEGIN: Settings -->
+        <button
+            class="fixed ltr:md:right-[-29px] ltr:right-0 rtl:left-0 rtl:md:left-[-29px] top-1/2 z-[888] translate-y-1/2 bg-slate-800 text-slate-50 dark:bg-slate-700 dark:text-slate-300 cursor-pointer transform rotate-90 flex items-center text-sm font-medium px-2 py-2 shadow-deep ltr:rounded-b rtl:rounded-t"
+            data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+            <iconify-icon class="text-slate-50 text-lg animate-spin"
+                icon="material-symbols:settings-outline-rounded"></iconify-icon>
+            <span class="hidden md:inline-block ltr:ml-2 rtl:mr-2">Settings</span>
+        </button>
 
         <!-- BEGIN: Settings Modal -->
         <div class="offcanvas offcanvas-end fixed bottom-0 flex flex-col max-w-full bg-white dark:bg-slate-800 invisible bg-clip-padding shadow-sm outline-none transition duration-300 ease-in-out text-gray-700 top-0 ltr:right-0 rtl:left-0 border-none w-96"
@@ -229,7 +235,7 @@
                             <label id="menuHide"
                                 class="relative inline-flex h-6 w-[46px] items-center rounded-full transition-all duration-150 cursor-pointer">
                                 <input type="checkbox" value="" class="sr-only peer">
-                                <span {{ $slot }}
+                                <span
                                     class="w-11 h-6 bg-gray-200 peer-focus:outline-none ring-0 rounded-full peer dark:bg-gray-900 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-black-500"></span>
                             </label>
                         </div>
@@ -281,8 +287,6 @@
                 </div>
             </div>
         </div>
-        <!-- END: Settings Modal -->
-        <!-- END: Settings -->
 
         <!-- End: Settings -->
         <div class="flex flex-col justify-between min-h-screen">
@@ -338,16 +342,10 @@
 
                             <div class="main-menu">
                                 <ul>
-
-                                    <li class="
-             menu-item-has-children 
-              ">
+                                    <li class="menu-item-has-children ">
                                         <!--  Single menu -->
 
                                         <!-- has dropdown -->
-
-
-
                                         <a href="javascript:void()">
                                             <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
                                                 <span class="icon-box">
@@ -359,99 +357,11 @@
                                                 <iconify-icon icon="heroicons-outline:chevron-down"> </iconify-icon>
                                             </div>
                                         </a>
-
-                                        <!-- Dropdown menu -->
-
-
-
-                                        <ul class="sub-menu">
-
-
-
-                                            <li>
-                                                <a href=index.html>
-                                                    <div class="flex space-x-2 items-start rtl:space-x-reverse">
-                                                        <iconify-icon icon=heroicons:presentation-chart-line
-                                                            class="leading-[1] text-base"> </iconify-icon>
-                                                        <span class="leading-[1]">
-                                                            Analytics Dashboard
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-
-
-                                            <li>
-                                                <a href=ecommerce-dashboard.html>
-                                                    <div class="flex space-x-2 items-start rtl:space-x-reverse">
-                                                        <iconify-icon icon=heroicons:shopping-cart
-                                                            class="leading-[1] text-base"> </iconify-icon>
-                                                        <span class="leading-[1]">
-                                                            Ecommerce Dashboard
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-
-
-                                            <li>
-                                                <a href=project-dashboard.html>
-                                                    <div class="flex space-x-2 items-start rtl:space-x-reverse">
-                                                        <iconify-icon icon=heroicons:briefcase
-                                                            class="leading-[1] text-base"> </iconify-icon>
-                                                        <span class="leading-[1]">
-                                                            Project Dashboard
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-
-
-                                            <li>
-                                                <a href=crm-dashboard.html>
-                                                    <div class="flex space-x-2 items-start rtl:space-x-reverse">
-                                                        <iconify-icon icon=ri:customer-service-2-fill
-                                                            class="leading-[1] text-base"> </iconify-icon>
-                                                        <span class="leading-[1]">
-                                                            CRM Dashboard
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-
-
-                                            <li>
-                                                <a href=banking-dashboard.html>
-                                                    <div class="flex space-x-2 items-start rtl:space-x-reverse">
-                                                        <iconify-icon icon=heroicons:wrench-screwdriver
-                                                            class="leading-[1] text-base"> </iconify-icon>
-                                                        <span class="leading-[1]">
-                                                            Banking Dashboard
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                        </ul>
-
-                                        <!-- Megamenu -->
-
-
                                     </li>
 
-                                    <li class="
-             menu-item-has-children 
-              ">
+                                    <li class="menu-item-has-children ">
                                         <!--  Single menu -->
-
                                         <!-- has dropdown -->
-
-
-
                                         <a href="javascript:void()">
                                             <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
                                                 <span class="icon-box">
@@ -464,7 +374,7 @@
                                             </div>
                                         </a>
 
-                                        <!-- Dropdown menu -->
+
 
 
 
@@ -1915,6 +1825,7 @@
     <script src="{{ asset('dashcode/assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('dashcode/assets/js/rt-plugins.js') }}"></script>
     <script src="{{ asset('dashcode/assets/js/app.js') }}"></script>
+
 
 </body>
 

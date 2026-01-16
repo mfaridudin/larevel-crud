@@ -1,61 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Siswas</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body>
-    <div class="container p-4">
-        <h1>Edit Siswas</h1>
-        <a href="/siswas" class="btn btn-primary mb-3">Kembali</a>
-
-        <form action="/siswas/{{ $siswas->id }}" method="post">
-            @csrf
-            @method('PUT')
-
-            <div class="mb-3">
-                <label class="form-label">Nama Siswas</label>
-                <input type="text" class="form-control" name="nama" value="{{ old('nama', $siswas->nama) }}">
-
-                @error('nama')
-                    <div class="form-text text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Nomor Telephone</label>
-
-                <div id="phone-wrapper">
-                    @foreach(old('phone_numbers', $siswas->phone_numbers) as $index => $phone_number)
-                        <div class="d-flex mb-2">
-                            <input type="number" class="form-control me-2" name="phone_numbers[]" value="{{ $phone_number }}"
-                                placeholder="Nomor telephone">
-
-                            <button type="button" class="btn btn-danger remove-phone" {{ $index === 0 ? 'disabled' : '' }}>
-                                X
-                            </button>
-                        </div>
-                    @endforeach
+<x-applayouts>
+    <div class="card">
+        <div class="card-body flex flex-col p-6">
+            <header class="flex mb-5 items-center border-b border-slate-100 dark:border-slate-700 pb-5 -mx-6 px-6">
+                <div class="flex-1">
+                    <div class="card-title text-slate-900 dark:text-white">Tambah Nomor Telephone</div>
                 </div>
+                <a href="/siswas" class="btn inline-flex justify-center btn-primary active">
+                    <span class="flex items-center">
+                        <iconify-icon class="text-2xl relative" icon="ic:round-keyboard-arrow-left"><template
+                                shadowrootmode="open">
+                                <style data-style="data-style">
+                                    :host {
+                                        display: inline-block;
+                                        vertical-align: 0
+                                    }
 
-                <button type="button" id="add-phone" class="btn btn-sm btn-secondary">
-                    + Tambah Nomor
-                </button>
+                                    span,
+                                    svg {
+                                        display: block
+                                    }
+                                </style><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M14.71 15.88L10.83 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L8.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0c.38-.39.39-1.03 0-1.42">
+                                    </path>
+                                </svg>
+                            </template></iconify-icon>
+                        <span>Back</span>
+                    </span>
+                </a>
+            </header>
+            <div class="card-text h-full">
+                <form action="/siswas/{{ $siswas->id }}" method="post">
+                    @csrf
+                    @method('PUT')
 
-                @error('phone_numbers.*')
-                    <div class="form-text text-danger">{{ $message }}</div>
-                @enderror
+                    <div class="mb-3">
+                        <label class="form-label">Nama Siswa</label>
+                        <input type="text" class="form-control" name="nama" value="{{ old('nama', $siswas->nama) }}">
+                        @error('nama')
+                            <div class="form-text text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nomor Telephone</label>
+                        <div id="phone-wrapper">    
+                            @foreach(old('phone_number', $siswas->phone_numbers) as $index => $phone)
+                                <div class="d-flex mb-2">
+                                    <input type="number" class="form-control me-2" name="phone_numbers[]"
+                                        value="{{ is_object($phone) ? $phone->phone_number : $phone }}"
+                                        placeholder="Nomor telephone">
+                                    <button
+                                        class="inline-flex items-center justify-center h-10 w-10 bg-danger-500 text-lg border rounded border-danger-500 text-white rb-zeplin-focused remove-phone"
+                                        {{ $index === 0 ? 'disabled' : '' }}>
+                                        <iconify-icon icon="fluent:delete-20-regular"></iconify-icon>
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <button type="button" id="add-phone" class="btn btn-sm btn-secondary">
+                            + Tambah Nomor
+                        </button>
+
+                        @error('phone_numbers.*')
+                            <div class="form-text text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
+        </div>
     </div>
-
     <script>
         document.getElementById('add-phone').addEventListener('click', function () {
             const wrapper = document.getElementById('phone-wrapper');
@@ -64,10 +82,17 @@
             div.classList.add('d-flex', 'mb-2');
 
             div.innerHTML = `
-            <input type="number" class="form-control me-2"
-                   name="phone_numbers[]"
-                   placeholder="Nomor telephone">
-            <button type="button" class="btn btn-danger remove-phone">X</button>
+              <div class="flex justify-between items-end space-x-6" id="phone-wrapper">
+                                <div class="input-area w-full">
+                                    <input type="tel" class="form-control" name="phone_numbers[]"
+                                        placeholder="Nomor telephone">
+                                </div>
+                                <button
+                                    class="inline-flex items-center justify-center h-10 w-10 bg-danger-500 text-lg border rounded border-danger-500 text-white rb-zeplin-focused remove-phone"
+                                    >
+                                    <iconify-icon icon="fluent:delete-20-regular"></iconify-icon>
+                                </button>
+                            </div>
         `;
 
             wrapper.appendChild(div);
@@ -89,7 +114,4 @@
         }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+</x-applayouts>

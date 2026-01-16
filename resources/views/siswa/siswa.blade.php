@@ -56,8 +56,7 @@
                                         </td>
                                         <td class="table-td ">
                                             <div class="flex space-x-3 rtl:space-x-reverse">
-
-                                                <button class="action-btn" type="button">
+                                                <a href="/siswa/{{ $item->id }}/edit" class="action-btn" type="button">
                                                     <iconify-icon icon="heroicons:pencil-square"><template
                                                             shadowrootmode="open">
                                                             <style data-style="data-style">
@@ -79,7 +78,7 @@
                                                                 </path>
                                                             </svg>
                                                         </template></iconify-icon>
-                                                </button>
+                                                </a>
                                                 <button class="action-btn" type="button">
                                                     <iconify-icon icon="heroicons:trash"><template shadowrootmode="open">
                                                             <style data-style="data-style">
@@ -125,7 +124,7 @@
         <button type="submit">logout</button>
     </form>
 
-    <button data-bs-toggle="modal" data-bs-target="#vertically_center"
+    <button type="button" data-bs-toggle="modal" data-bs-target="#vertically_center"
         class="btn inline-flex justify-center btn-outline-dark">Vertically Center</button>
 
     <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"

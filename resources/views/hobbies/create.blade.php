@@ -1,41 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-applayouts>
+    <div class="card">
+        <div class="card-body flex flex-col p-6">
+            <header class="flex mb-5 items-center border-b border-slate-100 dark:border-slate-700 pb-5 -mx-6 px-6">
+                <div class="flex-1">
+                    <div class="card-title text-slate-900 dark:text-white">Nama Hobi</div>
+                </div>
+                <a href="/hobbies" class="btn inline-flex justify-center btn-primary active">
+                    <span class="flex items-center">
+                        <iconify-icon class="text-2xl relative" icon="ic:round-keyboard-arrow-left"><template
+                                shadowrootmode="open">
+                                <style data-style="data-style">
+                                    :host {
+                                        display: inline-block;
+                                        vertical-align: 0
+                                    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hobbies</title>
-
-    {{-- bootstrap --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-
-<body>
-
-    <div class="container p-4">
-        <h1>Tambah Hobi</h1>
-        <a href="/hobbies" class="btn btn-primary t-12">Kembali</a>
-
-        <form action="/hobbies/create" method="post">
-            @csrf
-            @method('POST')
-            <div class="mb-3">
-                <label class="form-label">Nama Hobi</label>
-                <input type="text" class="form-control" name="nama_hobi" value="{{ old('nama_hobi') }}">
-                @error('nama_hobi')
-                    <div id="emailHelp" class="form-text text-danger">{{ $message }}</div>
-                @enderror
-
+                                    span,
+                                    svg {
+                                        display: block
+                                    }
+                                </style><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                    viewBox="0 0 24 24">
+                                    <path fill="currentColor"
+                                        d="M14.71 15.88L10.83 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L8.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0c.38-.39.39-1.03 0-1.42">
+                                    </path>
+                                </svg>
+                            </template></iconify-icon>
+                        <span>Back</span>
+                    </span>
+                </a>
+            </header>
+            <div class="card-text h-full">
+                <form action="/hobbies/create" method="post" class="space-y-4">
+                    @csrf
+                    @method('POST')
+                    <div class="input-area">
+                        <label for="nama_hobi" class="form-label">Nama Hobi</label>
+                        <div class="relative">
+                            <input type="text" class="form-control pr-9" name="nama_hobi" value="{{ old('nama_hobi') }}""
+                                    placeholder=" Nama Hobi">
+                        </div>
+                        @error('nama_hobi')
+                            <span class="font-Inter text-sm text-danger-500 pt-2 mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <button class="btn flex justify-center btn-dark ml-auto">Submit</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </div>
     </div>
-
-    {{-- bootstrap --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+</x-applayouts>
