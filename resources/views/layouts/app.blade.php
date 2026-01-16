@@ -103,31 +103,6 @@
                             </span>
                         </a>
                     </li>
-                    <li class="">
-                        <a href="todo.html" class="navItem">
-                            <span class="flex items-center">
-                                <iconify-icon class=" nav-icon" icon="heroicons-outline:clipboard-check"></iconify-icon>
-                                <span>Todo</span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="javascript:void(0)" class="navItem">
-                            <span class="flex items-center">
-                                <iconify-icon class=" nav-icon" icon="heroicons-outline:document"></iconify-icon>
-                                <span>Projects</span>
-                            </span>
-                            <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            <li>
-                                <a href="project.html">Projects</a>
-                            </li>
-                            <li>
-                                <a href="project-details.html">Project Details</a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -438,36 +413,7 @@
 
 
 
-                                            <li>
-                                                <a href=todo>
-                                                    <div class="flex space-x-2 items-start rtl:space-x-reverse">
-                                                        <iconify-icon icon=heroicons-outline:clipboard-check
-                                                            class="leading-[1] text-base"> </iconify-icon>
-                                                        <span class="leading-[1]">
-                                                            Todo
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-
-
-                                            <li>
-                                                <a href=projects>
-                                                    <div class="flex space-x-2 items-start rtl:space-x-reverse">
-                                                        <iconify-icon icon=heroicons-outline:document
-                                                            class="leading-[1] text-base"> </iconify-icon>
-                                                        <span class="leading-[1]">
-                                                            Projects
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                        </ul>
-
-                                        <!-- Megamenu -->
-
+                                           
 
                                     </li>
 
