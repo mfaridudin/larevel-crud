@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Password;
 
 class NewPasswordController extends Controller
 {
-    public function create(string $token)
+    public function create(Request $request, string $token)
     {
-        return view('Auth.new-password', ['token' => $token]);
+        return view('Auth.new-password', [
+            'token' => $token,
+            'email' => $request->email,
+        ]);
     }
 
     public function store(Request $request)
