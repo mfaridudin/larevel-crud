@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\hobbies;
+use App\Models\Hobbies;
 use App\Models\siswas;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class SiswaHobbiesController extends Controller
      */
     public function index()
     {
-        $siswa_hobi = Siswas::with('hobbies')->get();
+        $siswa_hobi = siswas::with('hobbies')->get();
 
         return view('siswa-hobbies.siswaHobbies', compact('siswa_hobi'));
     }
@@ -24,7 +24,7 @@ class SiswaHobbiesController extends Controller
     public function create()
     {
         $siswas = siswas::all();
-        $hobbies = hobbies::all();
+        $hobbies = Hobbies::all();
 
         return view('siswa-hobbies.create', compact('siswas', 'hobbies'));
     }
@@ -60,7 +60,7 @@ class SiswaHobbiesController extends Controller
     public function edit($id)
     {
         $siswa = siswas::with('hobbies')->findOrFail($id);
-        $all_hobbies = hobbies::all();
+        $all_hobbies = Hobbies::all();
 
         $siswa_hobbies_ids = $siswa->hobbies->pluck('id')->toArray();
 
@@ -72,7 +72,7 @@ class SiswaHobbiesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $siswa = Siswas::findOrFail($id);
+        $siswa = siswas::findOrFail($id);
 
         $siswa->update([
             'nama' => $request->nama,
@@ -88,7 +88,7 @@ class SiswaHobbiesController extends Controller
      */
     public function destroy(Request $request, string $siswaId)
     {
-        $siswa = Siswas::findOrFail($siswaId);
+        $siswa = siswas::findOrFail($siswaId);
 
         $siswa->hobbies()->detach($request->hobi_id);
 

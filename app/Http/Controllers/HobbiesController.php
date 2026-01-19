@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\hobbies;
+use App\Models\Hobbies;
 use Illuminate\Http\Request;
 
 class HobbiesController extends Controller
 {
     public function index()
     {
-        $hobbies = hobbies::get();
+        $hobbies = Hobbies::get();
 
         return view('hobbies.hobbies', compact('hobbies'));
     }
@@ -31,7 +31,7 @@ class HobbiesController extends Controller
 
         // dd($request);
 
-        hobbies::create([
+        Hobbies::create([
             'hobby' => $request->nama_hobi,
         ]);
 
@@ -41,7 +41,7 @@ class HobbiesController extends Controller
     // update
     public function edit(string $id)
     {
-        $hobby = hobbies::findOrFail($id);
+        $hobby = Hobbies::findOrFail($id);
 
         return view('hobbies.edit', compact('hobby'));
     }
@@ -57,7 +57,7 @@ class HobbiesController extends Controller
 
         // dd($request);
 
-        $hobby = hobbies::findOrFail($id);
+        $hobby = Hobbies::findOrFail($id);
 
         $hobby->update([
             'hobby' => $request->nama_hobi,
@@ -70,7 +70,7 @@ class HobbiesController extends Controller
     public function destroy(string $id)
     {
 
-        $hobby = hobbies::findOrFail($id);
+        $hobby = Hobbies::findOrFail($id);
 
         $hobby->delete();
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        ResetPassword::createUrlUsing(function ($user, string $token) {
+
+            // DEFAULT: Blade
+            if (request()->is('forgot-password')) {
+                return url('/reset-password/'.$token.'?email='.urlencode($user->email));
+            }
+
+            // API: React
+            return 'http://localhost:5173/reset-password/'
+            .$token
+            .'?email='.urlencode($user->email);
+        });
     }
 }

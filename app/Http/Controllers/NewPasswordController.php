@@ -12,7 +12,7 @@ class NewPasswordController extends Controller
     {
         return view('Auth.new-password', [
             'token' => $token,
-            'email' => $request->email,
+            'email' => $request->email, 
         ]);
     }
 
@@ -20,7 +20,6 @@ class NewPasswordController extends Controller
     {
         $request->validate([
             'token' => 'required',
-            // 'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\hobbies;
+use App\Models\Hobbies;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class HobbiesController extends Controller
@@ -14,7 +14,7 @@ class HobbiesController extends Controller
      */
     public function index()
     {
-        $hobbies = hobbies::all();
+        $hobbies = Hobbies::all();
 
         return response()->json([
             'status' => 'true',
@@ -28,7 +28,7 @@ class HobbiesController extends Controller
      */
     public function store(Request $request)
     {
-        $hobbies = new hobbies;
+        $hobbies = new Hobbies;
 
         $rules = [
             'hobby' => 'required|max:50',
@@ -56,7 +56,7 @@ class HobbiesController extends Controller
 
     public function show(string $id)
     {
-        $hobby = hobbies::findOrFail($id);
+        $hobby = Hobbies::findOrFail($id);
 
         return response()->json([
             'status' => 'true',
@@ -71,7 +71,7 @@ class HobbiesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $hobbies = hobbies::findOrFail($id);
+        $hobbies = Hobbies::findOrFail($id);
 
         $rules = [
             'hobby' => 'required|max:50',
@@ -102,7 +102,7 @@ class HobbiesController extends Controller
      */
     public function destroy(string $id)
     {
-        $hobbies = hobbies::findOrFail($id);
+        $hobbies = Hobbies::findOrFail($id);
         $hobbies->delete();
 
         return response()->json([

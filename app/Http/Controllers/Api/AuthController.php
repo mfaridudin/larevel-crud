@@ -62,7 +62,14 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
         ];
 
-        $validator = Validator::make($request->all(), $rules);
+        $messages = [
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Password minimal 8 karakter.',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
             return response()->json([
@@ -78,7 +85,7 @@ class AuthController extends Controller
                 'message' => 'Email atau Password tidak sesuai',
             ], 401);
         }
-
+    
         $data_user = User::where('email', $request->email)->first();
 
         return response()->json([

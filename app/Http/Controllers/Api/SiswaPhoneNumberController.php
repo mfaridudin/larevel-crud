@@ -14,7 +14,7 @@ class SiswaPhoneNumberController extends Controller
      */
     public function index()
     {
-        $siswas = Siswas::with('phone_numbers')->get();
+        $siswas = siswas::with('phone_numbers')->get();
 
         return response()->json([
             'status' => 'true',
