@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\GoogleAuthController;
 use App\Http\Controllers\Api\HobbiesController;
 use App\Http\Controllers\Api\NewPasswordController;
-use App\Http\Controllers\Api\PasswordResetLinkController;
 // use App\Http\Controllers\Api\HobbiesController;
+use App\Http\Controllers\Api\PasswordResetLinkController;
 use App\Http\Controllers\Api\SiswaNisnController;
 use App\Http\Controllers\Api\SiswaPhoneNumberController;
 use Illuminate\Http\Request;
@@ -25,3 +26,6 @@ Route::apiResource('siswa-phone-numbe   r', SiswaPhoneNumberController::class);
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'forgotPassword']);
 Route::post('/reset-password', [NewPasswordController::class, 'reset']);
+
+// Route::get('/google', [GoogleAuthController::class, 'redirect']);
+// Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);

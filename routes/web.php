@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/auth-google-redirect', [GoogleAuthController::class, 'google_redirect']);
+Route::get('/google/redirect', [GoogleAuthController::class, 'google_redirect']);
 Route::get('/auth-google-callback', [GoogleAuthController::class, 'google_callback']);
 
 Route::resource('videos', VideosController::class);

@@ -22,15 +22,26 @@ class AppServiceProvider extends ServiceProvider
     {
         ResetPassword::createUrlUsing(function ($user, string $token) {
 
-            // DEFAULT: Blade
-            if (request()->is('forgot-password')) {
-                return url('/reset-password/'.$token.'?email='.urlencode($user->email));
+            /**
+             * ============================
+             * API (React)
+             * ============================
+             */
+            if (request()->is('api/*')) {
+                return config('app.frontend_url')
+                    ."/reset-password/{$token}?email="
+                    .urlencode($user->email);
             }
 
-            // API: React
-            return 'http://localhost:5173/reset-password/'
-            .$token
-            .'?email='.urlencode($user->email);
+            /**
+             * ============================
+             * Blade (Laravel Web)
+             * ============================
+             */
+            return url(
+                '/reset-password/'.$token.
+                '?email='.urlencode($user->email)
+            );
         });
     }
 }

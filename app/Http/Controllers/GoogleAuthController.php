@@ -3,30 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Laravel\Socialite\Socialite;
+use Illuminate\Support\Facades\Auth;
 
 class GoogleAuthController extends Controller
 {
-    public function google_redirect()
+    public function google_redirect(Request $request)
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')
+            ->stateless()
+            ->with([
+                'state' => $request->get('type'), // spa
+            ])
+            ->redirect();
     }
 
-    public function google_callback()
+    public function google_callback(Request $request)
     {
-        $google_user = Socialite::driver('google')->stateless()->user();
+        $googleUser = Socialite::driver('google')
+            ->stateless()
+            ->user();
 
-        $user = User::where('email', $google_user->getEmail())->first();
+        $user = User::updateOrCreate(
+            ['email' => $googleUser->email],
+            [
+                'name' => $googleUser->name,
+                'google_id' => $googleUser->id,
+                'avatar' => $googleUser->avatar,
+                'email_verified_at' => now(),
+            ]
+        );
 
-        if (! $user) {
-            $user = User::create([
-                'name' => $google_user->getName(),
-                'email' => $google_user->getEmail(),
-                'password' => Hash::make(Str::random(24)),
-            ]);
+        if ($request->get('state') === 'spa') {
+            $token = $user->createToken('google-token')->plainTextToken;
+
+            return redirect(
+                config('app.frontend_url').'/google-callback?token='.$token
+            );
         }
 
         Auth::login($user);
