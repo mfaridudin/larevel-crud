@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class hobbies extends Model
+class Hobbies extends Model
 {
+    use HasFactory;
+
     public function siswas()
     {
         return $this->belongsToMany(siswas::class, 'hobby_siswa', 'hobby_id', 'siswa_id');
