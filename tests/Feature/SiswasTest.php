@@ -2,15 +2,18 @@
 
 namespace Tests\Feature;
 
-use App\Models\siswas;
-use App\Models\User;
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\siswas;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SiswasTest extends TestCase
 {
     /**
      * A basic feature test example.
      */
+    use RefreshDatabase;
+
     public function test_siswas_view(): void
     {
 
