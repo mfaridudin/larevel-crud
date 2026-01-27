@@ -24,11 +24,22 @@ class AppServiceProvider extends ServiceProvider
 
             /**
              * ============================
-             * API (React)
+             * API → React (Vite / SPA)
              * ============================
              */
-            if (request()->is('api/*')) {
+            if (request()->is('api/*') && request()->get('app') === 'react') {
                 return config('app.frontend_url')
+                    ."/reset-password/{$token}?email="
+                    .urlencode($user->email);
+            }
+
+            /**
+             * ============================
+             * API → Next.js
+             * ============================
+             */
+            if (request()->is('api/*') && request()->get('app') === 'next') {
+                return config('app.nextjs_url')
                     ."/reset-password/{$token}?email="
                     .urlencode($user->email);
             }
