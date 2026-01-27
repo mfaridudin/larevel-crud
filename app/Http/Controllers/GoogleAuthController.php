@@ -45,6 +45,14 @@ class GoogleAuthController extends Controller
             );
         }
 
+        if ($request->get('state') === 'next') {
+            $token = $user->createToken('google-token')->plainTextToken;
+
+            return redirect(
+                config('app.nextjs_url').'/google-callback?token='.$token
+            );
+        }
+
         Auth::login($user);
 
         return redirect('/siswa');

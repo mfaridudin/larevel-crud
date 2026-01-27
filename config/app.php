@@ -124,5 +124,6 @@ return [
     ],
 
     'frontend_url' => env('FRONTEND_URL'),
+    'nextjs_url' => env('NEXTJS_URL'),
 
 ];
