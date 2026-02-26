@@ -12,7 +12,7 @@ class NewPasswordController extends Controller
     {
         return view('Auth.new-password', [
             'token' => $token,
-            'email' => $request->email, 
+            'email' => $request->email,
         ]);
     }
 
